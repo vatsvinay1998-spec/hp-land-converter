@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 400" preserveAspectRatio="xMidYMax slice">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b78c9"/>
+      <stop offset=".38" stop-color="#6fb3e8"/>
+      <stop offset=".62" stop-color="#bfe1f5"/>
+      <stop offset="1" stop-color="#eaf6f4"/>
+    </linearGradient>
+    <linearGradient id="far" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9fb7d3"/>
+      <stop offset="1" stop-color="#c3d5e6"/>
+    </linearGradient>
+    <linearGradient id="mtn" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6c84a3"/>
+      <stop offset="1" stop-color="#8fa7c0"/>
+    </linearGradient>
+    <linearGradient id="forest" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2f6a3a"/>
+      <stop offset="1" stop-color="#24532e"/>
+    </linearGradient>
+    <linearGradient id="hill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5fa245"/>
+      <stop offset="1" stop-color="#3f7f35"/>
+    </linearGradient>
+    <linearGradient id="meadow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#a6d65e"/>
+      <stop offset="1" stop-color="#78b443"/>
+    </linearGradient>
+    <g id="pine">
+      <path d="M0 -44 L-8 -28 L-4 -28 L-11 -15 L-6 -15 L-14 0 L14 0 L6 -15 L11 -15 L4 -28 L8 -28 Z"/>
+      <rect x="-1.6" y="0" width="3.2" height="5"/>
+    </g>
+    <g id="house">
+      <rect x="-14" y="-12" width="28" height="14" fill="#f4ead8"/>
+      <path d="M-18 -11 L0 -24 L18 -11 Z" fill="#a8432f"/>
+      <rect x="-9" y="-8" width="5" height="5" fill="#6b4a32"/>
+      <rect x="4" y="-8" width="5" height="5" fill="#6b4a32"/>
+    </g>
+  </defs>
+
+  <rect width="800" height="400" fill="url(#sky)"/>
+  <g fill="#fff">
+    <ellipse cx="90" cy="46" rx="62" ry="10" opacity=".55"/>
+    <ellipse cx="560" cy="30" rx="70" ry="9" opacity=".5"/>
+    <ellipse cx="700" cy="70" rx="46" ry="8" opacity=".6"/>
+  </g>
+  <g transform="translate(0 112) scale(1 .72)">
+
+  <g fill="#fff">
+    <ellipse cx="120" cy="78" rx="70" ry="12" opacity=".7"/>
+    <ellipse cx="160" cy="70" rx="40" ry="12" opacity=".8"/>
+    <ellipse cx="640" cy="60" rx="80" ry="12" opacity=".6"/>
+    <ellipse cx="600" cy="54" rx="36" ry="11" opacity=".8"/>
+    <ellipse cx="400" cy="40" rx="50" ry="8" opacity=".45"/>
+  </g>
+
+  <!-- far range -->
+  <path d="M0 205 L60 175 L110 188 L170 146 L230 178 L300 128 L360 166 L420 118 L470 156 L540 102 L600 146 L660 120 L720 156 L800 128 V280 H0 Z" fill="url(#far)"/>
+  <g fill="#fff" opacity=".85">
+    <path d="M170 146 L158 156 L166 155 L172 160 L178 154 L184 156 Z"/>
+    <path d="M300 128 L286 140 L296 138 L302 145 L308 138 L316 140 Z"/>
+    <path d="M540 102 L524 116 L534 114 L541 122 L548 114 L558 117 Z"/>
+    <path d="M660 120 L648 130 L656 129 L662 135 L668 129 L674 131 Z"/>
+  </g>
+
+  <!-- main snowy peaks -->
+  <path d="M0 236 L80 190 L135 206 L225 128 L290 182 L350 148 L430 74 L505 146 L560 116 L640 166 L705 134 L800 180 V300 H0 Z" fill="url(#mtn)"/>
+  <path d="M430 74 L505 146 L478 156 L444 112 Z M225 128 L290 182 L268 186 L236 148 Z M560 116 L640 166 L618 168 L568 128 Z" fill="#566e8c" opacity=".55"/>
+  <g fill="#fff">
+    <path d="M430 74 L392 112 L410 106 L422 122 L436 106 L452 118 L470 104 Z"/>
+    <path d="M225 128 L198 152 L212 149 L222 160 L234 148 L250 152 Z"/>
+    <path d="M560 116 L538 134 L550 132 L559 142 L570 131 L584 134 Z"/>
+    <path d="M350 148 L334 162 L344 160 L351 167 L358 160 L368 162 Z"/>
+    <path d="M705 134 L688 147 L698 146 L705 153 L712 146 L722 148 Z"/>
+    <path d="M80 190 L66 201 L75 200 L81 206 L87 200 L95 202 Z"/>
+  </g>
+
+  <!-- forested ridge -->
+  <path d="M0 262 Q90 228 190 250 T400 244 T610 236 T800 246 V400 H0 Z" fill="url(#forest)"/>
+  <g fill="#1c4528">
+    <use href="#pine" xlink:href="#pine" x="18" y="262"/>
+    <use href="#pine" xlink:href="#pine" x="42" y="256" transform="translate(42 256) scale(1.2) translate(-42 -256)"/>
+    <use href="#pine" xlink:href="#pine" x="70" y="258"/>
+    <use href="#pine" xlink:href="#pine" x="96" y="252" transform="translate(96 252) scale(1.3) translate(-96 -252)"/>
+    <use href="#pine" xlink:href="#pine" x="124" y="254"/>
+    <use href="#pine" xlink:href="#pine" x="150" y="256" transform="translate(150 256) scale(.9) translate(-150 -256)"/>
+    <use href="#pine" xlink:href="#pine" x="330" y="252" transform="translate(330 252) scale(.8) translate(-330 -252)"/>
+    <use href="#pine" xlink:href="#pine" x="352" y="250" transform="translate(352 250) scale(.9) translate(-352 -250)"/>
+    <use href="#pine" xlink:href="#pine" x="640" y="244"/>
+    <use href="#pine" xlink:href="#pine" x="664" y="240" transform="translate(664 240) scale(1.25) translate(-664 -240)"/>
+    <use href="#pine" xlink:href="#pine" x="692" y="242"/>
+    <use href="#pine" xlink:href="#pine" x="720" y="238" transform="translate(720 238) scale(1.35) translate(-720 -238)"/>
+    <use href="#pine" xlink:href="#pine" x="748" y="242"/>
+    <use href="#pine" xlink:href="#pine" x="776" y="240" transform="translate(776 240) scale(1.2) translate(-776 -240)"/>
+  </g>
+
+  <!-- green hills with village -->
+  <path d="M0 300 Q150 266 300 292 T570 282 T800 290 V400 H0 Z" fill="url(#hill)"/>
+  <g>
+    <use href="#house" xlink:href="#house" x="600" y="286"/>
+    <use href="#house" xlink:href="#house" x="642" y="278" transform="translate(642 278) scale(1.15) translate(-642 -278)"/>
+    <use href="#house" xlink:href="#house" x="690" y="288" transform="translate(690 288) scale(.9) translate(-690 -288)"/>
+    <use href="#house" xlink:href="#house" x="210" y="292" transform="translate(210 292) scale(.8) translate(-210 -292)"/>
+  </g>
+  <g fill="#2a5e33">
+    <use href="#pine" xlink:href="#pine" x="570" y="292" transform="translate(570 292) scale(.7) translate(-570 -292)"/>
+    <use href="#pine" xlink:href="#pine" x="722" y="290" transform="translate(722 290) scale(.75) translate(-722 -290)"/>
+    <use href="#pine" xlink:href="#pine" x="240" y="296" transform="translate(240 296) scale(.65) translate(-240 -296)"/>
+  </g>
+
+  <!-- terraced meadow -->
+  <path d="M0 336 Q200 306 420 328 T800 318 V400 H0 Z" fill="url(#meadow)"/>
+  <path d="M0 352 Q220 326 440 346 T800 338" fill="none" stroke="#c5e57f" stroke-width="3" opacity=".7"/>
+  <path d="M0 370 Q240 346 460 364 T800 356" fill="none" stroke="#c5e57f" stroke-width="3" opacity=".55"/>
+  </g>
+</svg>
