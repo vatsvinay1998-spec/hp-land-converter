@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>HP Land Converter</title>
+  <meta name="description" content="Convert Himachal Pradesh land units — bigha, biswa, biswansi, kanal, marla, sarsahi — to metric, acres and hectares. Works offline.">
+  <meta name="theme-color" content="#0f4c3a" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b1512" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="HP Land">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-inner">
+      <div class="brand">
+        <img src="icons/icon.svg" alt="" width="36" height="36">
+        <div>
+          <h1>HP Land Converter</h1>
+          <p>हिमाचल भूमि माप · Bigha &amp; Kanal to metric</p>
+        </div>
+      </div>
+      <button id="installBtn" class="install" hidden>Install</button>
+    </div>
+  </header>
+
+  <nav class="tabs wrap" role="tablist">
+    <button role="tab" class="tab active" data-tab="convert" aria-selected="true">Convert</button>
+    <button role="tab" class="tab" data-tab="rakba" aria-selected="false">Rakba</button>
+    <button role="tab" class="tab" data-tab="ref" aria-selected="false">Reference</button>
+  </nav>
+
+  <main class="wrap">
+    <!-- CONVERT -->
+    <section id="tab-convert" class="panel active" role="tabpanel">
+      <div class="card input-card">
+        <label class="lbl" for="amount">Area</label>
+        <div class="input-row">
+          <input id="amount" type="number" inputmode="decimal" min="0" step="any" value="1" aria-label="Area value">
+          <select id="fromUnit" aria-label="From unit"></select>
+        </div>
+        <div class="karam" id="karamWrap">
+          <span class="lbl">Kanal standard (karam)</span>
+          <div class="seg" role="radiogroup" aria-label="Karam standard">
+            <button class="seg-btn active" data-karam="66" role="radio" aria-checked="true">66-inch <small>standard</small></button>
+            <button class="seg-btn" data-karam="57.5" role="radio" aria-checked="false">57.5-inch <small>old Punjab</small></button>
+          </div>
+        </div>
+      </div>
+
+      <div id="karamWarn" class="warn" hidden>
+        <strong>57.5-inch karam in use.</strong> Kanal, marla and sarsahi are about 24% smaller than the standard. Older Punjab settlements (Una, reported for Kangra) used this. Confirm with the Patwari or use the hectare figure on the Jamabandi.
+      </div>
+
+      <div class="results" id="results"></div>
+    </section>
+
+    <!-- RAKBA -->
+    <section id="tab-rakba" class="panel" role="tabpanel" hidden>
+      <div class="card">
+        <p class="hint">Rakba figures on the Jamabandi are <b>positional, not decimal</b>. Enter each part separately.</p>
+        <div class="seg seg-3" role="radiogroup" aria-label="Rakba system">
+          <button class="seg-btn active" data-sys="A">बी–बि–बि<small>Bigha</small></button>
+          <button class="seg-btn" data-sys="B">क–म–स<small>Kanal</small></button>
+          <button class="seg-btn" data-sys="H">हे–आ–से<small>Hectare</small></button>
+        </div>
+        <div class="trio" id="trio">
+          <div class="trio-cell"><input id="r1" type="number" inputmode="numeric" min="0" step="any" value="2"><span id="r1l">Bigha</span></div>
+          <div class="trio-cell"><input id="r2" type="number" inputmode="numeric" min="0" step="any" value="13"><span id="r2l">Biswa</span></div>
+          <div class="trio-cell"><input id="r3" type="number" inputmode="numeric" min="0" step="any" value="10"><span id="r3l">Biswansi</span></div>
+        </div>
+        <p class="formula mono" id="rFormula"></p>
+        <p class="karam-note" id="rKaramNote" hidden></p>
+      </div>
+      <div class="results" id="rResults"></div>
+    </section>
+
+    <!-- REFERENCE -->
+    <section id="tab-ref" class="panel" role="tabpanel" hidden>
+      <div class="sys-grid">
+        <div class="sys sys-a">
+          <span class="eyebrow">System A</span>
+          <h3>Bigha · Biswa · Biswansi</h3>
+          <p class="hi">बीघा · बिस्वा · बिस्वांसी</p>
+          <p class="where">Sirmaur (Paonta Sahib), Shimla, Solan, Mandi, Bilaspur, Chamba, Kullu, Kinnaur, Lahaul &amp; Spiti</p>
+          <ul class="mono">
+            <li>20 biswansi = 1 biswa</li>
+            <li>20 biswa = 1 bigha</li>
+            <li>1 bigha = 809.371 m² = 8,712 ft²</li>
+            <li>5 bigha = 1 acre</li>
+          </ul>
+        </div>
+        <div class="sys sys-b">
+          <span class="eyebrow">System B</span>
+          <h3>Kanal · Marla · Sarsahi</h3>
+          <p class="hi">कनाल · मरला · सरसाही</p>
+          <p class="where">Kangra, Una, Hamirpur, and pockets such as Nalagarh — go by the unit printed on the Jamabandi</p>
+          <ul class="mono">
+            <li>9 sarsahi = 1 marla</li>
+            <li>20 marla = 1 kanal</li>
+            <li>1 kanal = 505.857 m² = 5,445 ft²</li>
+            <li>8 kanal = 1 acre (1 ghumaon)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-h">Crossing the two systems</h3>
+        <ul class="cross mono">
+          <li>1 bigha = 1.6 kanal = 32 marla</li>
+          <li>1 kanal = 0.625 bigha = 12.5 biswa</li>
+          <li>1 acre = 5 bigha = 8 kanal</li>
+          <li>1 hectare = 12.3553 bigha = 19.7684 kanal</li>
+        </ul>
+        <p class="small">Based on the standard 66-inch karam.</p>
+      </div>
+
+      <div class="card">
+        <h3 class="card-h">A bigha is not a bigha</h3>
+        <p class="small">Square feet per bigha differs by state. Never run an HP file through a generic converter.</p>
+        <div class="chips">
+          <span class="chip chip-hp"><b>8,712</b>Himachal</span>
+          <span class="chip"><b>6,800</b>Uttarakhand (hills)</span>
+          <span class="chip"><b>12,000</b>M. Pradesh</span>
+          <span class="chip"><b>14,400</b>W.B. / Assam</span>
+          <span class="chip"><b>17,424</b>Gujarat</span>
+          <span class="chip"><b>9,070*</b>Punjab</span>
+          <span class="chip"><b>27,000*</b>Uttar Pradesh</span>
+          <span class="chip"><b>27,220</b>Bihar</span>
+        </div>
+        <p class="small">* Values vary within these states.</p>
+      </div>
+
+      <p class="disclaimer">Verify every figure against the certified Jamabandi. Himbhoomi — Revenue Department, Himachal Pradesh (himbhoomi.nic.in). Certified nakal: Patwari / Tehsil / Lok Mitra Kendra.</p>
+    </section>
+  </main>
+
+  <footer class="wrap foot">
+    <span>Works offline · Figures rounded for display</span>
+  </footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
