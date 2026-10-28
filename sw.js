@@ -1,4 +1,4 @@
-const CACHE = 'hpland-v2';
+const CACHE = 'hpland-v3';
 const ASSETS = [
   '/',
   '/index.html',
@@ -6,6 +6,7 @@ const ASSETS = [
   '/app.js',
   '/manifest.webmanifest',
   '/icons/icon.svg',
+  '/icons/hero.svg',
   '/icons/icon-192.png',
   '/icons/icon-512.png',
 ];
