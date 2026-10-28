@@ -17,14 +17,15 @@
     { id: 'sarsahi',  name: 'Sarsahi',  hi: 'सरसाही',    group: 'b', m2: () => kanal() / 180 },
     { id: 'marla',    name: 'Marla',    hi: 'मरला',      group: 'b', m2: () => kanal() / 20 },
     { id: 'kanal',    name: 'Kanal',    hi: 'कनाल',      group: 'b', m2: () => kanal() },
-    { id: 'sqm',      name: 'Square metre', hi: 'm²',    group: 'm', m2: () => 1 },
-    { id: 'sqft',     name: 'Square foot',  hi: 'ft²',   group: 'm', m2: () => 0.09290304 },
-    { id: 'sqyd',     name: 'Square yard',  hi: 'yd²',   group: 'm', m2: () => 0.83612736 },
+    { id: 'sqm',      name: 'Square metre', short: 'Sq metre', hi: 'm²',    group: 'm', m2: () => 1 },
+    { id: 'sqft',     name: 'Square foot', short: 'Sq foot', hi: 'ft²',   group: 'm', m2: () => 0.09290304 },
+    { id: 'sqyd',     name: 'Square yard', short: 'Sq yard', hi: 'yd²',   group: 'm', m2: () => 0.83612736 },
     { id: 'acre',     name: 'Acre',     hi: 'एकड़',      group: 'm', m2: () => ACRE },
+    { id: 'are',      name: 'Are',      hi: 'आर',        group: 'm', m2: () => 100 },
     { id: 'hectare',  name: 'Hectare',  hi: 'हेक्टेयर',  group: 'm', m2: () => 10000 },
   ];
   const byId = Object.fromEntries(UNITS.map(u => [u.id, u]));
-  const GROUPS = { a: 'System A · Bigha', b: 'System B · Kanal', m: 'Metric & Imperial' };
+  const GROUPS = { a: 'Bigha system', b: 'Kanal system', m: 'Metric' };
 
   // ---- Formatting ----
   const fmt = (n) => {
@@ -56,23 +57,23 @@
     const [bg, bw, bs] = compound(m2, BIGHA, 20, 20);
     const [kn, mr, sr] = compound(m2, kanal(), 20, 9);
     return `
-      <div class="compound">
-        <div class="compound-row a"><span class="k">Bigha – Biswa – Biswansi</span><span class="v">${bg.toLocaleString('en-IN')} – ${bw} – ${trim(bs)}</span></div>
-        <div class="compound-row b"><span class="k">Kanal – Marla – Sarsahi${karam === '57.5' ? ' (57.5″)' : ''}</span><span class="v">${kn.toLocaleString('en-IN')} – ${mr} – ${trim(sr)}</span></div>
+      <div class="readings">
+        <div class="reading"><small><i class="dot a"></i> Bigha–Biswa–Biswansi</small><b>${bg.toLocaleString('en-IN')}–${bw}–${trim(bs)}</b></div>
+        <div class="reading"><small><i class="dot b"></i> Kanal–Marla–Sarsahi${karam === '57.5' ? ' (57.5″)' : ''}</small><b>${kn.toLocaleString('en-IN')}–${mr}–${trim(sr)}</b></div>
       </div>`;
   };
 
   const resultsHtml = (m2, fromId) => {
     let html = compoundHtml(m2);
     for (const g of Object.keys(GROUPS)) {
-      html += `<div class="group-h ${g}">${GROUPS[g]}</div>`;
+      html += `<div class="group"><div class="group-h"><i class="dot ${g}"></i>${GROUPS[g]}</div><div class="tiles">`;
       for (const u of UNITS.filter(x => x.group === g)) {
         const v = m2 / u.m2();
-        html += `<button class="res${u.id === fromId ? ' is-from' : ''}" data-copy="${fmt(v)} ${u.name.toLowerCase()}">
-          <span class="res-name"><b>${u.name}</b><span>${u.hi}</span></span>
-          <span class="res-val">${fmt(v)}</span>
+        html += `<button class="tile${u.id === fromId ? ' is-from' : ''}" data-copy="${fmt(v)} ${u.name.toLowerCase()}">
+          <small>${u.short || u.name}</small><b>${fmt(v)}</b>
         </button>`;
       }
+      html += '</div></div>';
     }
     return html;
   };
@@ -182,7 +183,7 @@
     toastTimer = setTimeout(() => toast.classList.remove('show'), 1600);
   };
   document.addEventListener('click', async (e) => {
-    const r = e.target.closest('.res');
+    const r = e.target.closest('.tile');
     if (!r) return;
     try { await navigator.clipboard.writeText(r.dataset.copy); showToast(`Copied ${r.dataset.copy}`); }
     catch { showToast(r.dataset.copy); }

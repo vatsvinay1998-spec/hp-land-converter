@@ -1,4 +1,4 @@
-const CACHE = 'hpland-v1';
+const CACHE = 'hpland-v2';
 const ASSETS = [
   '/',
   '/index.html',
@@ -22,19 +22,18 @@ self.addEventListener('activate', (e) => {
   );
 });
 
-// Stale-while-revalidate: answer from cache instantly, refresh in the background.
+// Network first so updates show immediately; fall back to cache when offline.
 self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') return;
   e.respondWith(
-    caches.open(CACHE).then(async (cache) => {
-      const cached = await cache.match(e.request, { ignoreSearch: true });
-      const network = fetch(e.request)
-        .then((res) => {
-          if (res.ok && (res.type === 'basic' || res.type === 'cors')) cache.put(e.request, res.clone());
-          return res;
-        })
-        .catch(() => cached);
-      return cached || network;
-    })
+    fetch(e.request)
+      .then((res) => {
+        if (res.ok && (res.type === 'basic' || res.type === 'cors')) {
+          const copy = res.clone();
+          caches.open(CACHE).then((c) => c.put(e.request, copy));
+        }
+        return res;
+      })
+      .catch(() => caches.match(e.request, { ignoreSearch: true }).then((r) => r || caches.match('/')))
   );
 });
